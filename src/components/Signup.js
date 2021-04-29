@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Signup() {
   const emailRef = useRef();
+  const roleRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const { signup } = useAuth();
@@ -23,8 +24,7 @@ export default function Signup() {
       setMessage("");
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      setMessage("Sign Up Success! Please Login");
+      await signup(emailRef.current.value, passwordRef.current.value, roleRef.current.value);
       //redirect to login
     } catch {
       setError("Failed to create an account");
@@ -45,6 +45,16 @@ export default function Signup() {
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
+
+            <Form.Group controlId="exampleForm.ControlSelect1">
+              <Form.Label>Select Role</Form.Label>
+              <Form.Control as="select" ref = {roleRef}>
+                <option value="admin">Admin</option>
+                <option value="police">Police</option>
+                <option value="insurance">Insurance</option>
+              </Form.Control>
+            </Form.Group>
+
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
