@@ -78,11 +78,11 @@ export default function UpdateProfile() {
             </Button>
           </Form>
         </Card.Body>
-        <Card.Body>
+        <Card.Footer>
           <Link to="/" className="btn btn-danger w-100 text-center mt-2">
             Cancel
           </Link>
-        </Card.Body>
+        </Card.Footer>
       </Card>
     </>
   );
