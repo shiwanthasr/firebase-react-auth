@@ -38,32 +38,33 @@ export default function Dashboard() {
 
     return (
         <>
-            <Card>
+            <Card bg="dark" text="white">
                 <Card.Body>
-                <Row>
-                    <Col className="text-center">
-                        <Image 
-                            src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=150" 
-                            alt="profile-image"
-                            height={200}
-                            width={250}
-                            rounded />
-                    </Col>
-                </Row>
-                {userData && <h2 className="text-center mb-2 mt-2">Welcome, {userData.name}</h2>}
-                {userData && <h4 className="text-center mb-4">[ {userData.role} ]</h4>}
-                {error && <Alert variant="danger">{error}</Alert>}
-                <strong>Email:</strong> {currentUser.email}
-                <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
-                    Update Profile
-                </Link>
+                    <Row>
+                        <Col className="text-center">
+                            <Image 
+                                src={`/img/${userData.role}.png`}
+                                alt="profile-image"
+                                height={200}
+                                width={200}
+                                thumbnail                            
+                                fluid />
+                        </Col>
+                    </Row>
+                    {userData && <h2 className="text-center mb-2 mt-2">Welcome, {userData.name}</h2>}
+                    {userData && <h4 className="text-center mb-4">[ {userData.role} ]</h4>}
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <strong>Email:</strong> {currentUser.email}
+                    <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
+                        Update Profile
+                    </Link>
+                </Card.Body>
+                <Card.Body>
+                    <Link onClick={handleLogout} className="btn btn-danger w-100 text-center mt-2">
+                        Logout
+                    </Link>
                 </Card.Body>
             </Card>
-            <div className="w-100 text-center mt-2">
-                <Button variant="link" onClick={handleLogout}>
-                    Logout
-                </Button>
-            </div>
         </>
     )
 }

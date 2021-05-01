@@ -43,7 +43,7 @@ export default function UpdateProfile() {
 
   return (
     <>
-      <Card>
+      <Card bg="dark" text="white">
         <Card.Body>
           <h2 className="text-center mb-4">Update Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -78,10 +78,12 @@ export default function UpdateProfile() {
             </Button>
           </Form>
         </Card.Body>
+        <Card.Body>
+          <Link to="/" className="btn btn-danger w-100 text-center mt-2">
+            Cancel
+          </Link>
+        </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
-        <Link to="/">Cancel</Link>
-      </div>
     </>
   );
 }
