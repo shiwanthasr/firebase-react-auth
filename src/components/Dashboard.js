@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Card, Button, Alert, Row, Col, Image } from "react-bootstrap"
+import { Card, Alert, Row, Col, Image, ListGroup, ListGroupItem } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import firebase from "firebase"
@@ -42,7 +42,7 @@ export default function Dashboard() {
                 <Card.Body>
                     <Row>
                         <Col className="text-center">
-                            <Image 
+                            <Image
                                 src={`/img/${userData.role}.png`}
                                 alt="profile-image"
                                 height={200}
@@ -54,16 +54,19 @@ export default function Dashboard() {
                     {userData && <h2 className="text-center mb-2 mt-2">Welcome, {userData.name}</h2>}
                     {userData && <h4 className="text-center mb-4">[ {userData.role} ]</h4>}
                     {error && <Alert variant="danger">{error}</Alert>}
-                    <strong>Email:</strong> {currentUser.email}
-                    <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
+                    <ListGroup>
+                        <ListGroup.Item variant="primary"><strong>Email : </strong> {currentUser.email}</ListGroup.Item>
+                        <ListGroup.Item variant="primary"><strong>Name  : </strong> {userData.name}</ListGroup.Item>
+                    </ListGroup>
+                    <Link to="/update-profile" className="btn btn-primary w-100 mt-4">
                         Update Profile
                     </Link>
                 </Card.Body>
-                <Card.Body>
+                <Card.Footer className="text-muted">
                     <Link onClick={handleLogout} className="btn btn-danger w-100 text-center mt-2">
                         Logout
                     </Link>
-                </Card.Body>
+                </Card.Footer>
             </Card>
         </>
     )
