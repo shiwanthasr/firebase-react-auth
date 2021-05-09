@@ -7,6 +7,7 @@ export default function Signup() {
   const emailRef = useRef();
   const nameRef = useRef();
   const roleRef = useRef();
+  const nicRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const { signup } = useAuth();
@@ -25,7 +26,7 @@ export default function Signup() {
       setMessage("");
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value, roleRef.current.value, nameRef.current.value);
+      await signup(emailRef.current.value, passwordRef.current.value, roleRef.current.value, nameRef.current.value, nicRef.current.value);
       //redirect to login
     } catch {
       setError("Failed to create an account");
@@ -57,6 +58,10 @@ export default function Signup() {
                 <option value="police">Police</option>
                 <option value="insurance">Insurance</option>
               </Form.Control>
+            </Form.Group>
+            <Form.Group id="nic">
+              <Form.Label>NIC</Form.Label>
+              <Form.Control type="nic" ref={nicRef} required />
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
