@@ -61,6 +61,9 @@ export default function Dashboard() {
                     <Link to="/update-profile" className="btn btn-primary w-100 mt-4">
                         Update Profile
                     </Link>
+                    <Link to="/create-user" className="btn btn-primary w-100 mt-4">
+                        Create User
+                    </Link>
                 </Card.Body>
                 <Card.Footer className="text-muted">
                     <Link onClick={handleLogout} className="btn btn-danger w-100 text-center mt-2">
