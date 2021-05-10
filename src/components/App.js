@@ -1,43 +1,38 @@
-import Dashboard from "./Dashboard";
-import Login from "./Login";
-import { Container } from "react-bootstrap";
+import Signup from "./authentication/Signup";
+import Profile from "./authentication/Profile";
+import Login from "./authentication/Login";
 import { AuthProvider } from "../contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
-import ForgotPassword from "./ForgotPassword";
-import UpdateProfile from "./UpdateProfile";
-import CreateUser from "./CreateUser";
-import Nav from "./Nav";
+import PrivateRoute from "./authentication/PrivateRoute";
+import ForgotPassword from "./authentication/ForgotPassword";
+import UpdateProfile from "./authentication/UpdateProfile";
+import CreateUser from "./authentication/CreateUser";
+import Dashboard from "./main/Dashboard";
+import Navbar from "./parts/Navbar";
 
 function App() {
   return (
-    <>
-      <Router>
-        <AuthProvider>
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/forgot-password" component={ForgotPassword} />
+    <Router>
+      <AuthProvider>
+        <Switch>
+          {/* Auth */}
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
+          <Route path="/forgot-password" component={ForgotPassword} />
 
-            <>
-              <Nav />
-              <Container
-                className="d-flex align-items-center justify-content-center"
-                style={{ minHeight: "90vh" }}
-              >
-                <div className="w-100" style={{ maxWidth: "400px" }}>
-                  <PrivateRoute exact path="/" component={Dashboard} />
-                  <PrivateRoute
-                    path="/update-profile"
-                    component={UpdateProfile}
-                  />
-                  <PrivateRoute path="/create-user" component={CreateUser} />
-                </div>
-              </Container>
-            </>
-          </Switch>
-        </AuthProvider>
-      </Router>
-    </>
+          <>
+            <Navbar />
+            {/* Main */}
+            <PrivateRoute exact path="/" component={Dashboard} />
+
+            {/* Profile */}
+            <PrivateRoute path="/user" component={Profile} />
+            <PrivateRoute path="/update-profile" component={UpdateProfile} />
+            <PrivateRoute path="/create-user" component={CreateUser} />
+          </>
+        </Switch>
+      </AuthProvider>
+    </Router>
   );
 }
 

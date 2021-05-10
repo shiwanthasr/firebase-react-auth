@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import CenteredContainer from "./CenteredContainer";
 
 function CreateUser() {
   const emailRef = useRef();
@@ -27,7 +28,7 @@ function CreateUser() {
       setMessage("");
       setError("");
       setLoading(true);
-      const sign_up = await signup(
+      await signup(
         emailRef.current.value,
         passwordRef.current.value,
         roleRef.current.value,
@@ -35,12 +36,7 @@ function CreateUser() {
         nicRef.current.value
       );
 
-      if(sign_up){
-        return setMessage("User Created Successfully!");
-      }
-      else{
-        return setError("User Creation Failed!");
-      }
+      return setMessage("User Created Successfully!");
 
     } catch {
       setError("Failed to create an account");
@@ -50,7 +46,7 @@ function CreateUser() {
   }
 
   return (
-    <>
+    <CenteredContainer>
       <Card bg="dark" text="white">
         <Card.Body>
           <h2 className="text-center mb-4">Create User</h2>
@@ -101,12 +97,12 @@ function CreateUser() {
           </Form>
         </Card.Body>
         <Card.Footer>
-          <Link to="/" className="btn btn-danger w-100 text-center mt-2">
+          <Link to="/user" className="btn btn-danger w-100 text-center mt-2">
             Cancel
           </Link>
         </Card.Footer>
       </Card>
-    </>
+    </CenteredContainer>
   );
 }
 
