@@ -17,6 +17,7 @@ function CreateUser() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    e.target.reset();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match!");
@@ -26,14 +27,21 @@ function CreateUser() {
       setMessage("");
       setError("");
       setLoading(true);
-      await signup(
+      const sign_up = await signup(
         emailRef.current.value,
         passwordRef.current.value,
         roleRef.current.value,
         nameRef.current.value,
         nicRef.current.value
       );
-      //redirect to login
+
+      if(sign_up){
+        return setMessage("User Created Successfully!");
+      }
+      else{
+        return setError("User Creation Failed!");
+      }
+
     } catch {
       setError("Failed to create an account");
     }
@@ -46,9 +54,17 @@ function CreateUser() {
       <Card bg="dark" text="white">
         <Card.Body>
           <h2 className="text-center mb-4">Create User</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {message && <Alert variant="success">{message}</Alert>}
-          <Form onSubmit={handleSubmit}>
+          {error && (
+            <Alert variant="danger" onClose={() => setError("")} dismissible>
+              {error}
+            </Alert>
+          )}
+          {message && (
+            <Alert variant="success" onClose={() => setMessage("")} dismissible>
+              {message}
+            </Alert>
+          )}
+          <Form onSubmit={handleSubmit} id="user-creation-form">
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
@@ -61,7 +77,9 @@ function CreateUser() {
               <Form.Label>Select Role</Form.Label>
               <Form.Control as="select" ref={roleRef}>
                 <option value="admin">Admin</option>
+                <option value="police_admin">Police Admin</option>
                 <option value="police">Police</option>
+                <option value="insurance_admin">Insurance Admin</option>
                 <option value="insurance">Insurance</option>
               </Form.Control>
             </Form.Group>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Card, Alert, Row, Col, Image, ListGroup, ListGroupItem } from "react-bootstrap"
+import { Card, Alert, Row, Col, Image, ListGroup } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import firebase from "firebase"
@@ -61,7 +61,7 @@ export default function Dashboard() {
                     <Link to="/update-profile" className="btn btn-primary w-100 mt-4">
                         Update Profile
                     </Link>
-                    <Link to="/create-user" className="btn btn-primary w-100 mt-4">
+                    <Link to="/create-user" className="btn btn-success w-100 mt-4">
                         Create User
                     </Link>
                 </Card.Body>
