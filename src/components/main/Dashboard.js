@@ -1,16 +1,23 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 
 const Dashboard = () => {
   return (
     <>
       <Container fluid>
-        <h2>Need to add some Bullshit</h2>
-        <h2>Need to add some Bullshit</h2>
-        <h2>Need to add some Bullshit</h2>
-        <h2>Need to add some Bullshit</h2>
-        <h2>Need to add some Bullshit</h2>
-        <h2>Need to add some Bullshit</h2>
+        <Row />
+        <Row>
+          <Col className="text-center">
+            <Image
+              src="/dashboard-img.png"
+              alt="dashboard-image"
+              width='1000'
+              height='800'
+              fluid
+              rounded 
+            />
+          </Col>
+        </Row>
       </Container>
     </>
   );

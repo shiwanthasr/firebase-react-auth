@@ -8,6 +8,7 @@ function CreateInsuranceUser() {
   const emailRef = useRef();
   const nameRef = useRef();
   const roleRef = useRef();
+  const insuranceCompanyRef = useRef();
   const nicRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -18,7 +19,6 @@ function CreateInsuranceUser() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    e.target.reset();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match!");
@@ -33,11 +33,12 @@ function CreateInsuranceUser() {
         passwordRef.current.value,
         roleRef.current.value,
         nameRef.current.value,
-        nicRef.current.value
+        nicRef.current.value,
+        null,
+        insuranceCompanyRef.current.value
       );
 
       return setMessage("User Created Successfully!");
-
     } catch {
       setError("Failed to create an account");
     }
@@ -73,6 +74,15 @@ function CreateInsuranceUser() {
               <Form.Label>Select Role</Form.Label>
               <Form.Control as="select" ref={roleRef}>
                 <option value="insurance">Insurance</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="exampleForm.ControlSelect2">
+              <Form.Label>Select Insurance Company</Form.Label>
+              <Form.Control as="select" ref={insuranceCompanyRef}>
+                <option value="allianz">Allianz Insurance</option>
+                <option value="ceylinco">Ceylinco Insurance</option>
+                <option value="peoples">People’s Insurance</option>
+                <option value="slic">Sri Lanka Insurance</option>
               </Form.Control>
             </Form.Group>
             <Form.Group id="nic">

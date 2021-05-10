@@ -8,6 +8,7 @@ function CreatePoliceUser() {
   const emailRef = useRef();
   const nameRef = useRef();
   const roleRef = useRef();
+  const policeBranchRef = useRef();
   const nicRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -18,7 +19,6 @@ function CreatePoliceUser() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    e.target.reset();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match!");
@@ -33,11 +33,11 @@ function CreatePoliceUser() {
         passwordRef.current.value,
         roleRef.current.value,
         nameRef.current.value,
-        nicRef.current.value
+        nicRef.current.value,
+        policeBranchRef.current.value
       );
 
       return setMessage("User Created Successfully!");
-
     } catch {
       setError("Failed to create an account");
     }
@@ -73,6 +73,15 @@ function CreatePoliceUser() {
               <Form.Label>Select Role</Form.Label>
               <Form.Control as="select" ref={roleRef}>
                 <option value="police">Police</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="exampleForm.ControlSelect2">
+              <Form.Label>Select Police Branch</Form.Label>
+              <Form.Control as="select" ref={policeBranchRef}>
+                <option value="colombo">Colombo</option>
+                <option value="kandy">Kandy</option>
+                <option value="galle">Galle</option>
+                <option value="badulla">Badulla</option>
               </Form.Control>
             </Form.Group>
             <Form.Group id="nic">

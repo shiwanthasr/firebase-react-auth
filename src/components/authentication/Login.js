@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Form, Button, Card, Alert, Row, Col, Image } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import CenteredContainer from "./CenteredContainer";
@@ -31,8 +31,20 @@ export default function Login() {
     <CenteredContainer>
           <Card bg="dark" text="white">
             <Card.Body>
-              <h2 className="text-center mb-4">DRUNK DETECTOR</h2>
-              <h2 className="text-center mb-4">Login</h2>
+            <h2 className="text-center mb-4 font-weight-bold">DRUNK DETECTOR</h2>
+            <Row>
+            <Col className="text-center">
+              <Image
+                src="/app-logo.png"
+                alt="profile-image"
+                height={200}
+                width={200}
+                thumbnail
+                fluid
+              />
+            </Col>
+          </Row>
+              <h2 className="text-center mb-4 mt-4">Login</h2>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit}>
                 <Form.Group id="email">
