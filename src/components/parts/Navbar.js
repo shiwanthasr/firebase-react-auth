@@ -12,6 +12,7 @@ const NavbarComponent = () => {
   const firestore = firebase.firestore();
 
   useEffect(() => {
+    if(user!=null)
     firestore
       .collection("users")
       .doc(user.uid) // change to the current user id
@@ -23,7 +24,7 @@ const NavbarComponent = () => {
           setUserData(user.data());
         }
       });
-  }, [firestore, user.uid]);
+  }, [firestore, user != null ? user.uid : null]);
 
   async function handleLogout() {
     try {
@@ -57,12 +58,15 @@ const NavbarComponent = () => {
         </Nav.Link>
       </Nav>
 
-      <Nav className="ml-auto">
+      {/* <Nav className="ml-auto">
         {userData && (
-          <p className="text-center mb-2 mt-2 text-danger">Welcome, {userData.name}</p> 
+          <p className="text-center mb-2 mt-2 text-danger">
+            Welcome, {userData.name}{" "}
+            <span className="text-success">[ {userData.role} ]</span>
+          </p>
         )}
-      </Nav>
-      <Form inline>
+      </Nav> */}
+      <Form inline className="ml-auto">
         <Button variant="danger" onClick={handleLogout} className="ml-4">
           <img
             alt=""

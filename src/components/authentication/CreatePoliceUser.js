@@ -4,7 +4,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import CenteredContainer from "./CenteredContainer";
 
-function CreateUser() {
+function CreatePoliceUser() {
   const emailRef = useRef();
   const nameRef = useRef();
   const roleRef = useRef();
@@ -18,7 +18,7 @@ function CreateUser() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    //e.target.reset();
+    e.target.reset();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match!");
@@ -49,7 +49,7 @@ function CreateUser() {
     <CenteredContainer>
       <Card bg="dark" text="white">
         <Card.Body>
-          <h2 className="text-center mb-4">Create User</h2>
+          <h2 className="text-center mb-4">Create User - Police</h2>
           {error && (
             <Alert variant="danger" onClose={() => setError("")} dismissible>
               {error}
@@ -72,11 +72,7 @@ function CreateUser() {
             <Form.Group controlId="exampleForm.ControlSelect1">
               <Form.Label>Select Role</Form.Label>
               <Form.Control as="select" ref={roleRef}>
-                <option value="admin">Admin</option>
-                <option value="police_admin">Police Admin</option>
                 <option value="police">Police</option>
-                <option value="insurance_admin">Insurance Admin</option>
-                <option value="insurance">Insurance</option>
               </Form.Control>
             </Form.Group>
             <Form.Group id="nic">
@@ -106,4 +102,4 @@ function CreateUser() {
   );
 }
 
-export default CreateUser;
+export default CreatePoliceUser;

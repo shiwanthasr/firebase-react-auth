@@ -72,9 +72,27 @@ export default function Profile() {
           <Link to="/update-profile" className="btn btn-primary w-100 mt-4">
             Update Profile
           </Link>
-          <Link to="/create-user" className="btn btn-success w-100 mt-4">
-            Create User
-          </Link>
+          {userData.role === "admin" && (
+            <Link to="/create-user" className="btn btn-success w-100 mt-4">
+              Create User
+            </Link>
+          )}
+          {userData.role === "police_admin" && (
+            <Link
+              to="/create-police-user"
+              className="btn btn-warning w-100 mt-4"
+            >
+              Create Police User
+            </Link>
+          )}
+          {userData.role === "insurance_admin" && (
+            <Link
+              to="/create-insurance-user"
+              className="btn btn-info w-100 mt-4"
+            >
+              Create Insurance User
+            </Link>
+          )}
         </Card.Body>
         {/* <Card.Footer className="text-muted">
           <Link
