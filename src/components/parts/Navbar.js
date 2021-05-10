@@ -56,6 +56,9 @@ const NavbarComponent = () => {
         <Nav.Link as={Link} to="/user">
           Profile
         </Nav.Link>
+        <Nav.Link as={Link} to="mange/users">
+          Manage Users
+        </Nav.Link>
       </Nav>
 
       {/* <Nav className="ml-auto">

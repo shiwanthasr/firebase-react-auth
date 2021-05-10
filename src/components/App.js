@@ -11,6 +11,7 @@ import CreatePoliceUser from "./authentication/CreatePoliceUser";
 import CreateInsuranceUser from "./authentication/CreateInsuranceUser";
 import Dashboard from "./main/Dashboard";
 import Navbar from "./parts/Navbar";
+import ManageUsers from "./authentication/manageUsers";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
 
             {/* Profile */}
             <PrivateRoute path="/user" component={Profile} />
+            <PrivateRoute path="/mange/users" component={ManageUsers} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <PrivateRoute path="/create-user" component={CreateUser} />
             <PrivateRoute path="/create-police-user" component={CreatePoliceUser} />
