@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import firebase from "firebase";
 
 const NavbarComponent = () => {
-
   const history = useHistory();
-  const { logout } = useAuth();
+  const [userData, setUserData] = useState({});
+  const { currentUser, logout } = useAuth();
+  var user = firebase.auth().currentUser;
+  const firestore = firebase.firestore();
+
+  useEffect(() => {
+    firestore
+      .collection("users")
+      .doc(user.uid) // change to the current user id
+      .get()
+      .then((user) => {
+        if (user.exists) {
+          // now you can do something with user
+          //console.log(user.data())
+          setUserData(user.data());
+        }
+      });
+  }, [firestore, user.uid]);
 
   async function handleLogout() {
     try {
@@ -40,8 +57,13 @@ const NavbarComponent = () => {
         </Nav.Link>
       </Nav>
 
-      <Form inline className="ml-auto" >
-        <Button variant="danger" onClick={handleLogout}>
+      <Nav className="ml-auto">
+        {userData && (
+          <p className="text-center mb-2 mt-2 text-danger">Welcome, {userData.name}</p> 
+        )}
+      </Nav>
+      <Form inline>
+        <Button variant="danger" onClick={handleLogout} className="ml-4">
           <img
             alt=""
             src="/logout.png"
