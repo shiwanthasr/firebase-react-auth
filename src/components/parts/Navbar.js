@@ -37,7 +37,7 @@ const NavbarComponent = () => {
 
   return (
     <Navbar bg="dark" expand="sm" variant="dark">
-      <Navbar.Brand as={Link} to="/">
+      <Navbar.Brand as={Link} to="/" className="border p-2">
         <img
           alt=""
           src="/app-logo.png"
@@ -47,12 +47,10 @@ const NavbarComponent = () => {
         />{" "}
         DRUNK DETECTOR
       </Navbar.Brand>
-      <Nav>
+      <Nav className="font-weight-bold">
         <Nav.Link as={Link} to="/">
           Home
         </Nav.Link>
-      </Nav>
-      <Nav>
         <Nav.Link as={Link} to="/user">
           Profile
         </Nav.Link>
@@ -60,8 +58,8 @@ const NavbarComponent = () => {
           Manage Users
         </Nav.Link>
 
-        {localStorage.getItem("role") == "admin" ||
-        localStorage.getItem("role") == "police_admin" ? (
+        {localStorage.getItem("role") === "admin" ||
+        localStorage.getItem("role") === "police_admin" ? (
           <Nav.Link as={Link} to="/police-reports">
             Police Reports
           </Nav.Link>
@@ -69,8 +67,8 @@ const NavbarComponent = () => {
           ""
         )}
 
-        {localStorage.getItem("role") == "admin" ||
-        localStorage.getItem("role") == "insurance_admin" ? (
+        {localStorage.getItem("role") === "admin" ||
+        localStorage.getItem("role") === "insurance_admin" ? (
           <Nav.Link as={Link} to="/insurance-reports">
             Insurance Reports
           </Nav.Link>
@@ -81,7 +79,9 @@ const NavbarComponent = () => {
 
       <Nav className="ml-auto">
         <p className="text-center mb-2 mt-2 text-white">
-          Welcome, {localStorage.getItem("name")}{" "}
+          <Nav.Link as={Link} to="/user">
+            Welcome, {localStorage.getItem("name")}{" "}
+          </Nav.Link>
           <span className="text-success font-weight-bold">
             [ {userData.role} ]
           </span>
