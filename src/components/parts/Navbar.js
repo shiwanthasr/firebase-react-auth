@@ -12,18 +12,18 @@ const NavbarComponent = () => {
   const firestore = firebase.firestore();
 
   useEffect(() => {
-    if(user!=null)
-    firestore
-      .collection("users")
-      .doc(user.uid) // change to the current user id
-      .get()
-      .then((user) => {
-        if (user.exists) {
-          // now you can do something with user
-          //console.log(user.data())
-          setUserData(user.data());
-        }
-      });
+    if (user != null)
+      firestore
+        .collection("users")
+        .doc(user.uid) // change to the current user id
+        .get()
+        .then((user) => {
+          if (user.exists) {
+            // now you can do something with user
+            //console.log(user.data())
+            setUserData(user.data());
+          }
+        });
   }, [firestore, user != null ? user.uid : null]);
 
   async function handleLogout() {
@@ -56,7 +56,7 @@ const NavbarComponent = () => {
         <Nav.Link as={Link} to="/user">
           Profile
         </Nav.Link>
-        <Nav.Link as={Link} to="manage/users">
+        <Nav.Link as={Link} to="manage-users">
           Manage Users
         </Nav.Link>
       </Nav>
