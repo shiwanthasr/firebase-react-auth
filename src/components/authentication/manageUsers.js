@@ -3,14 +3,17 @@ import firebase from "firebase";
 
 const ManageUsers = () => {
   const firestore = firebase.firestore();
-  let [userDetails, setUserDetails] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
 
   const fetchUsers = async () => {
     const response = firestore.collection("users");
-    const data = await response.get();
-    data.docs.forEach((item) => {
-      setUserDetails([...userDetails, item.data()]);
-    });
+    await response.get().then((snapshot) => {
+      snapshot.docs.forEach((doc) => (
+
+        setUserDetails(userDetails => ([...userDetails, doc.data()]))
+
+          ))
+  })
   };
 
   useEffect(() => {
@@ -21,7 +24,9 @@ const ManageUsers = () => {
     <div class="container">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">{userDetails.map(itm=>{ return <li>{itm.name}</li> })}</h3>
+          <h3 class="panel-title">
+            Table
+          </h3>
         </div>
         <div class="panel-body">
           <table class="table table-stripe">
