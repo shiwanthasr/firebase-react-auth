@@ -131,14 +131,14 @@ const ManageUsers = () => {
       </div>
 
       {/* Table */}
-      <div class="container">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">User Table</h3>
+      <div className="container">
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h3 className="panel-title">User Table</h3>
           </div>
-          <div class="panel-body">
-            <table class="table table-striped">
-              <thead class="thead-dark">
+          <div className="panel-body">
+            <table className="table table-striped">
+              <thead className="thead-dark">
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Email</th>
@@ -163,13 +163,13 @@ const ManageUsers = () => {
                       <td>{user_data.insurance_company}</td>
                       <td>
                         <div
-                          class="btn-group"
+                          className="btn-group"
                           role="group"
                           aria-label="action btns"
                         >
                           <button
                             type="button"
-                            class="btn btn-warning"
+                            className="btn btn-warning"
                             data-toggle="modal"
                             data-target="#editModal"
                           >
@@ -178,7 +178,7 @@ const ManageUsers = () => {
                           <button
                             id="submit"
                             type="button"
-                            class="btn btn-danger"
+                            className="btn btn-danger"
                             data-toggle="modal"
                             data-target="#deleteModal"
                           >
@@ -193,6 +193,8 @@ const ManageUsers = () => {
           </div>
         </div>
       </div>
+
+      <script>alert(2)</script>
     </>
   );
 };
