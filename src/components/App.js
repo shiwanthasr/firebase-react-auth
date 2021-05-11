@@ -11,7 +11,7 @@ import CreatePoliceUser from "./authentication/CreatePoliceUser";
 import CreateInsuranceUser from "./authentication/CreateInsuranceUser";
 import Dashboard from "./main/Dashboard";
 import Navbar from "./parts/Navbar";
-import ManageUsers from "./authentication/manageUsers";
+import ManageUsers from "./authentication/ManageUsers";
 
 function App() {
   return (
@@ -33,8 +33,14 @@ function App() {
             <PrivateRoute path="/mange/users" component={ManageUsers} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <PrivateRoute path="/create-user" component={CreateUser} />
-            <PrivateRoute path="/create-police-user" component={CreatePoliceUser} />
-            <PrivateRoute path="/create-insurance-user" component={CreateInsuranceUser} />
+            <PrivateRoute
+              path="/create-police-user"
+              component={CreatePoliceUser}
+            />
+            <PrivateRoute
+              path="/create-insurance-user"
+              component={CreateInsuranceUser}
+            />
           </>
         </Switch>
       </AuthProvider>
