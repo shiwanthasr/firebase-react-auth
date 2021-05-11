@@ -18,13 +18,6 @@ const ManageUsers = () => {
     fetchUsers();
   }, []);
 
-  "#submit".click(function () {
-    var name = "#name".val();
-    var marks = "#marks".val();
-    var str = "You Have Entered " + "Name: " + name + " and Marks: " + marks;
-    "#modal_body".html(str);
-  });
-
   return (
     <>
       {/* Edit Model */}
