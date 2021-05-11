@@ -3,6 +3,10 @@ import { Form, Button, Card, Alert, Row, Col, Image } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import CenteredContainer from "./CenteredContainer";
+import firebase from "firebase";
+
+
+
 
 export default function Login() {
   const emailRef = useRef();
@@ -11,6 +15,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const firestore = firebase.firestore();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -18,8 +23,25 @@ export default function Login() {
     try {
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/");
+      let response = await login(emailRef.current.value, passwordRef.current.value);
+      if(response){
+
+        firestore
+        .collection("users")
+        .doc(response.user.uid) // change to the current user id
+        .get()
+        .then((user) => {
+          if (user.exists) {
+            localStorage.setItem("role", user.data()['role']);
+            localStorage.setItem("email", user.data()['email']);
+            localStorage.setItem("name", user.data()['name']);
+            localStorage.setItem("nic", user.data()['nic']);
+          }
+        }).then((e)=>{
+          history.push("/");
+        });
+
+      }
     } catch {
       setError("Failed to sign in!");
     }

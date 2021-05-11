@@ -12,7 +12,7 @@ export default function Profile() {
   const history = useHistory();
   var user = firebase.auth().currentUser;
   const firestore = firebase.firestore();
-
+  
   async function handleLogout() {
     setError("");
 
@@ -39,6 +39,7 @@ export default function Profile() {
   }, [firestore, user.uid]);
 
   return (
+
     <CenteredContainer>
       <Card bg="dark" text="white">
         <Card.Body>

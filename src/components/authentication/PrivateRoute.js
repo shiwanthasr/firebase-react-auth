@@ -9,7 +9,7 @@ export default function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) => {
-        return currentUser ? (
+        return localStorage.getItem("email") != null && localStorage.getItem("email") != 'undefined' && localStorage.getItem("email") != '' ? (
           <Component {...props} />
         ) : (
           <Redirect to="/login" />

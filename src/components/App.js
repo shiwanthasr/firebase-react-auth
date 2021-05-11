@@ -33,14 +33,8 @@ function App() {
             <PrivateRoute path="/manage/users" component={ManageUsers} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <PrivateRoute path="/create-user" component={CreateUser} />
-            <PrivateRoute
-              path="/create-police-user"
-              component={CreatePoliceUser}
-            />
-            <PrivateRoute
-              path="/create-insurance-user"
-              component={CreateInsuranceUser}
-            />
+            <PrivateRoute path="/create-police-user" component={CreatePoliceUser} />
+            <PrivateRoute path="/create-insurance-user" component={CreateInsuranceUser} />
           </>
         </Switch>
       </AuthProvider>
