@@ -3,7 +3,6 @@ import firebase from "firebase";
 
 const ManageUsers = () => {
   const firestore = firebase.firestore();
-  var user = firebase.auth().currentUser;
   const [userDetails, setUserDetails] = useState([]);
   const [userData, setUserData] = useState({});
 
@@ -12,11 +11,11 @@ const ManageUsers = () => {
 
     let response = [];
 
-    if (userData.role === "admin") {
+    if (localStorage.getItem("role") === "admin") {
       response = firestore.collection("users");
-    } else if (userData.role === "police_admin") {
+    } else if (localStorage.getItem("role") === "police_admin") {
       response = firestore.collection("users").where("role", "==", "police");
-    } else if (userData.role === "insurance_admin") {
+    } else if (localStorage.getItem("role") === "insurance_admin") {
       response = firestore.collection("users").where("role", "==", "insurance");
     }
 
@@ -27,25 +26,10 @@ const ManageUsers = () => {
     });
   };
 
-  const getCurrentUserData = () => {
-    if(user!=null)
-    firestore
-      .collection("users")
-      .doc(user.uid) // change to the current user id
-      .get()
-      .then((user) => {
-        if (user.exists) {
-          // now you can do something with user
-          //console.log(user.data())
-          setUserData(user.data());
-        }
-      });
-  };
 
   useEffect(() => {
-    getCurrentUserData();
     fetchUsers();
-  }, [firestore, user != null ? user.uid : null]);
+  }, [firestore, localStorage.getItem("user_uid")]);
 
   return (
     <>

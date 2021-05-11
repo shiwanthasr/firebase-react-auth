@@ -10,7 +10,7 @@ export default function Profile() {
   const [userData, setUserData] = useState({});
   const { currentUser, logout } = useAuth();
   const history = useHistory();
-  var user = firebase.auth().currentUser;
+
   const firestore = firebase.firestore();
   
   async function handleLogout() {
@@ -24,20 +24,6 @@ export default function Profile() {
     }
   }
 
-  useEffect(() => {
-    firestore
-      .collection("users")
-      .doc(user.uid) // change to the current user id
-      .get()
-      .then((user) => {
-        if (user.exists) {
-          // now you can do something with user
-          //console.log(user.data())
-          setUserData(user.data());
-        }
-      });
-  }, [firestore, user.uid]);
-
   return (
 
     <CenteredContainer>
@@ -46,7 +32,7 @@ export default function Profile() {
           <Row>
             <Col className="text-center">
               <Image
-                src={`/img/${userData.role}.png`}
+                src={`/img/${localStorage.getItem("role")}.png`}
                 alt="profile-image"
                 height={200}
                 width={200}
@@ -56,18 +42,18 @@ export default function Profile() {
             </Col>
           </Row>
           {userData && (
-            <h2 className="text-center mb-2 mt-2">Welcome, {userData.name}</h2>
+            <h2 className="text-center mb-2 mt-2">Welcome, {localStorage.getItem("name")}</h2>
           )}
           {userData && (
-            <h4 className="text-center mb-4">[ {userData.role} ]</h4>
+            <h4 className="text-center mb-4">[ {localStorage.getItem("role")} ]</h4>
           )}
           {error && <Alert variant="danger">{error}</Alert>}
           <ListGroup>
             <ListGroup.Item variant="primary">
-              <strong>Email : </strong> {currentUser.email}
+              <strong>Email : </strong> {localStorage.getItem("email")}
             </ListGroup.Item>
             <ListGroup.Item variant="primary">
-              <strong>Name : </strong> {userData.name}
+              <strong>Name : </strong> {localStorage.getItem("name")}
             </ListGroup.Item>
           </ListGroup>
           <Link to="/update-profile" className="btn btn-primary w-100 mt-4">

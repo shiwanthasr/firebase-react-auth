@@ -32,6 +32,7 @@ export default function Login() {
         .get()
         .then((user) => {
           if (user.exists) {
+            localStorage.setItem("user_uid", response.user.uid);
             localStorage.setItem("role", user.data()['role']);
             localStorage.setItem("email", user.data()['email']);
             localStorage.setItem("name", user.data()['name']);
