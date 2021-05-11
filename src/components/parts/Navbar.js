@@ -56,7 +56,7 @@ const NavbarComponent = () => {
         <Nav.Link as={Link} to="/user">
           Profile
         </Nav.Link>
-        <Nav.Link as={Link} to="mange/users">
+        <Nav.Link as={Link} to="manage/users">
           Manage Users
         </Nav.Link>
       </Nav>

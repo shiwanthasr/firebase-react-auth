@@ -30,7 +30,7 @@ function App() {
 
             {/* Profile */}
             <PrivateRoute path="/user" component={Profile} />
-            <PrivateRoute path="/mange/users" component={ManageUsers} />
+            <PrivateRoute path="/manage/users" component={ManageUsers} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <PrivateRoute path="/create-user" component={CreateUser} />
             <PrivateRoute
