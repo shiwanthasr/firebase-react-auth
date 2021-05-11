@@ -23,6 +23,12 @@ const InsuranceReports = () => {
     });
   };
 
+  const test = async ()=>{
+    var db = firebase.firestore();
+    let response = db.collection("test").doc('u7VLQmkYpkEBf4UTPD2I').update({name: "test"});
+    console.log(response);
+  }
+
 
   useEffect(() => {
     fetchInsuranceReports();
@@ -190,6 +196,7 @@ const InsuranceReports = () => {
                             className="btn btn-warning"
                             data-toggle="modal"
                             data-target="#editModal"
+                            data-attribute={JSON.stringify(insurance_report_data)}
                           >
                             Edit
                           </button>
@@ -199,6 +206,7 @@ const InsuranceReports = () => {
                             className="btn btn-danger"
                             data-toggle="modal"
                             data-target="#deleteModal"
+                            onClick={test}
                           >
                             Delete
                           </button>
