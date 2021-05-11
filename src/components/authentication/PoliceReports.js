@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
 
-const ManageUsers = () => {
+const PoliceReports = () => {
   const firestore = firebase.firestore();
-  const [userDetails, setUserDetails] = useState([]);
+  const [policeReportDetails, setpoliceReportDetails] = useState([]);
 
-  const fetchUsers = async () => {
-    setUserDetails([]);
+  const fetchPoliceReports = async () => {
+    setpoliceReportDetails([]);
 
     let response = [];
 
     if (localStorage.getItem("role") === "admin") {
-      response = firestore.collection("users");
+      response = firestore.collection("police_reports");
     } else if (localStorage.getItem("role") === "police_admin") {
-      response = firestore.collection("users").where("role", "==", "police");
-    } else if (localStorage.getItem("role") === "insurance_admin") {
-      response = firestore.collection("users").where("role", "==", "insurance");
+      response = firestore.collection("police_reports");
     }
 
     await response.get().then((snapshot) => {
       snapshot.docs.forEach((doc) =>
-        setUserDetails((userDetails) => [...userDetails, doc.data()])
+        setpoliceReportDetails((policeReportDetails) => [...policeReportDetails, doc.data()])
       );
     });
   };
 
+
   useEffect(() => {
-    fetchUsers();
+    fetchPoliceReports();
   }, [firestore, localStorage.getItem("user_uid")]);
 
   return (
@@ -44,7 +43,7 @@ const ManageUsers = () => {
           <div className="modal-content">
             <div className="modal-header bg-dark">
               <h5 className="modal-title text-light" id="editModalLabel">
-                Update System User Info
+                Update Police Report Info
               </h5>
               <button
                 type="button"
@@ -111,7 +110,7 @@ const ManageUsers = () => {
           <div className="modal-content">
             <div className="modal-header bg-dark">
               <h5 className="modal-title text-light" id="deleteModalLabel">
-                Delete User
+                Delete Police Report
               </h5>
               <button
                 type="button"
@@ -123,7 +122,7 @@ const ManageUsers = () => {
               </button>
             </div>
             <div className="modal-body">
-              Are you sure you want to delete this User ?
+              Are you sure you want to delete this Report ?
             </div>
             <div className="modal-footer">
               <button
@@ -145,33 +144,39 @@ const ManageUsers = () => {
       <div className="container mt-4">
         <div className="panel panel-default">
           <div className="panel-heading">
-            <h3 className="panel-title">User Table</h3>
+            <h3 className="panel-title">Police Report Table</h3>
           </div>
           <div className="panel-body">
             <table className="table table-striped">
               <thead className="thead-dark">
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Role</th>
+                  <th scope="col">Driver Name</th>
+                  <th scope="col">License No</th>
                   <th scope="col">NIC</th>
-                  <th scope="col">Police Branch</th>
-                  <th scope="col">Insurance Company</th>
+                  <th scope="col">Vehicle No</th>
+                  <th scope="col">Vehicle Model</th>
+                  <th scope="col">Model Year</th>
+                  <th scope="col">Traffic Violation</th>
+                  <th scope="col">Fined Amount</th>
+                  <th scope="col">Date and Time</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {userDetails &&
-                  userDetails.map((user_data, index) => (
-                    <tr key={user_data.email}>
+                {policeReportDetails &&
+                  policeReportDetails.map((police_report_data, index) => (
+                    <tr key={police_report_data.timestamp}>
                       <th scope="row">{index + 1}</th>
-                      <td>{user_data.email}</td>
-                      <td>{user_data.name}</td>
-                      <td>{user_data.role}</td>
-                      <td>{user_data.nic}</td>
-                      <td>{user_data.police_branch}</td>
-                      <td>{user_data.insurance_company}</td>
+                      <td>{police_report_data.driver_name}</td>
+                      <td>{police_report_data.licen_no}</td>
+                      <td>{police_report_data.nic}</td>
+                      <td>{police_report_data.vehicle_number}</td>
+                      <td>{police_report_data.vehicle_model}</td>
+                      <td>{police_report_data.model_year}</td>
+                      <td>{police_report_data.traffic_violation}</td>
+                      <td>{police_report_data.fined_amount}</td>
+                      <td>{police_report_data.timestamp}</td>
                       <td>
                         <div
                           className="btn-group"
@@ -210,4 +215,4 @@ const ManageUsers = () => {
   );
 };
 
-export default ManageUsers;
+export default PoliceReports;

@@ -56,20 +56,38 @@ const NavbarComponent = () => {
         <Nav.Link as={Link} to="/user">
           Profile
         </Nav.Link>
-        <Nav.Link as={Link} to="manage-users">
+        <Nav.Link as={Link} to="/manage-users">
           Manage Users
         </Nav.Link>
+
+        {localStorage.getItem("role") == "admin" ||
+        localStorage.getItem("role") == "police_admin" ? (
+          <Nav.Link as={Link} to="/police-reports">
+            Police Reports
+          </Nav.Link>
+        ) : (
+          ""
+        )}
+
+        {localStorage.getItem("role") == "admin" ||
+        localStorage.getItem("role") == "insurance_admin" ? (
+          <Nav.Link as={Link} to="/insurance-reports">
+            Insurance Reports
+          </Nav.Link>
+        ) : (
+          ""
+        )}
       </Nav>
 
-      {/* <Nav className="ml-auto">
-        {userData && (
-          <p className="text-center mb-2 mt-2 text-danger">
-            Welcome, {userData.name}{" "}
-            <span className="text-success">[ {userData.role} ]</span>
-          </p>
-        )}
-      </Nav> */}
-      <Form inline className="ml-auto">
+      <Nav className="ml-auto">
+        <p className="text-center mb-2 mt-2 text-white">
+          Welcome, {localStorage.getItem("name")}{" "}
+          <span className="text-success font-weight-bold">
+            [ {userData.role} ]
+          </span>
+        </p>
+      </Nav>
+      <Form inline>
         <Button variant="danger" onClick={handleLogout} className="ml-4">
           <img
             alt=""

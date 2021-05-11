@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
 
-const ManageUsers = () => {
+const InsuranceReports = () => {
   const firestore = firebase.firestore();
-  const [userDetails, setUserDetails] = useState([]);
+  const [insuranceReportDetails, setinsuranceReportDetails] = useState([]);
 
-  const fetchUsers = async () => {
-    setUserDetails([]);
+  const fetchInsuranceReports = async () => {
+    setinsuranceReportDetails([]);
 
     let response = [];
 
     if (localStorage.getItem("role") === "admin") {
-      response = firestore.collection("users");
-    } else if (localStorage.getItem("role") === "police_admin") {
-      response = firestore.collection("users").where("role", "==", "police");
+      response = firestore.collection("insurance_reports");
     } else if (localStorage.getItem("role") === "insurance_admin") {
-      response = firestore.collection("users").where("role", "==", "insurance");
+      response = firestore.collection("insurance_reports");
     }
 
     await response.get().then((snapshot) => {
       snapshot.docs.forEach((doc) =>
-        setUserDetails((userDetails) => [...userDetails, doc.data()])
+        setinsuranceReportDetails((insuranceReportDetails) => [...insuranceReportDetails, doc.data()])
       );
     });
   };
 
+
   useEffect(() => {
-    fetchUsers();
+    fetchInsuranceReports();
   }, [firestore, localStorage.getItem("user_uid")]);
 
   return (
@@ -44,7 +43,7 @@ const ManageUsers = () => {
           <div className="modal-content">
             <div className="modal-header bg-dark">
               <h5 className="modal-title text-light" id="editModalLabel">
-                Update System User Info
+                Update Insurance Report Info
               </h5>
               <button
                 type="button"
@@ -111,7 +110,7 @@ const ManageUsers = () => {
           <div className="modal-content">
             <div className="modal-header bg-dark">
               <h5 className="modal-title text-light" id="deleteModalLabel">
-                Delete User
+                Delete Insurance Report
               </h5>
               <button
                 type="button"
@@ -123,7 +122,7 @@ const ManageUsers = () => {
               </button>
             </div>
             <div className="modal-body">
-              Are you sure you want to delete this User ?
+              Are you sure you want to delete this Report ?
             </div>
             <div className="modal-footer">
               <button
@@ -145,33 +144,41 @@ const ManageUsers = () => {
       <div className="container mt-4">
         <div className="panel panel-default">
           <div className="panel-heading">
-            <h3 className="panel-title">User Table</h3>
+            <h3 className="panel-title">Insurance Report Table</h3>
           </div>
           <div className="panel-body">
             <table className="table table-striped">
               <thead className="thead-dark">
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Role</th>
+                  <th scope="col">Driver Name</th>
+                  <th scope="col">License No</th>
                   <th scope="col">NIC</th>
-                  <th scope="col">Police Branch</th>
-                  <th scope="col">Insurance Company</th>
+                  <th scope="col">Vehicle No</th>
+                  <th scope="col">Vehicle Model</th>
+                  <th scope="col">Model Year</th>
+                  <th scope="col">Estimate Amount</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Note</th>
+                  <th scope="col">Date and Time</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {userDetails &&
-                  userDetails.map((user_data, index) => (
-                    <tr key={user_data.email}>
+                {insuranceReportDetails &&
+                  insuranceReportDetails.map((insurance_report_data, index) => (
+                    <tr key={insurance_report_data.uid}>
                       <th scope="row">{index + 1}</th>
-                      <td>{user_data.email}</td>
-                      <td>{user_data.name}</td>
-                      <td>{user_data.role}</td>
-                      <td>{user_data.nic}</td>
-                      <td>{user_data.police_branch}</td>
-                      <td>{user_data.insurance_company}</td>
+                      <td>{insurance_report_data.driver_name}</td>
+                      <td>{insurance_report_data.licen_no}</td>
+                      <td>{insurance_report_data.nic}</td>
+                      <td>{insurance_report_data.vehicle_number}</td>
+                      <td>{insurance_report_data.vehicle_model}</td>
+                      <td>{insurance_report_data.model_year}</td>
+                      <td>{insurance_report_data.estimate_amount}</td>
+                      <td>{insurance_report_data.latitude} - {insurance_report_data.longitude}</td>
+                      <td>{insurance_report_data.note}</td>
+                      <td>{insurance_report_data.timestamp}</td>
                       <td>
                         <div
                           className="btn-group"
@@ -210,4 +217,4 @@ const ManageUsers = () => {
   );
 };
 
-export default ManageUsers;
+export default InsuranceReports;
