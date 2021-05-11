@@ -29,6 +29,10 @@ const InsuranceReports = () => {
     console.log(response);
   }
 
+  const test2 = async ()=>{
+    alert(2);
+  }
+
 
   useEffect(() => {
     fetchInsuranceReports();
@@ -197,6 +201,7 @@ const InsuranceReports = () => {
                             data-toggle="modal"
                             data-target="#editModal"
                             data-attribute={JSON.stringify(insurance_report_data)}
+                            onClick={test2}
                           >
                             Edit
                           </button>
