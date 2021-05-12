@@ -18,18 +18,35 @@ const InsuranceReports = () => {
 
     await response.get().then((snapshot) => {
       snapshot.docs.forEach((doc) =>
-        setinsuranceReportDetails((insuranceReportDetails) => [...insuranceReportDetails, doc.data()])
+        setinsuranceReportDetails((insuranceReportDetails) => [...insuranceReportDetails, {...doc.data(), id: doc.id}])
       );
     });
   };
 
-  const test = async ()=>{
-    var db = firebase.firestore();
-    let response = db.collection("test").doc('u7VLQmkYpkEBf4UTPD2I').update({name: "test"});
-    console.log(response);
+
+  const updateDocument = async ()=>{
+    let db = firebase.firestore();
+    
+    let document_id = field_value('doc_id');
+
+    db.collection("insurance_reports").doc(document_id).update({
+      driver_name: field_value('driver_name'),
+      licen_no: field_value('licen_no'),
+      nic: field_value('nic'),
+      vehicle_number: field_value('vehicle_no'),
+      vehicle_model: field_value('vehicle_model'),
+      model_year: field_value('model_year'),
+      estimate_amount: field_value('estimate_amount'),
+      latitude: field_value('latitude'),
+      longitude: field_value('longitude'),
+      note: field_value('note')
+    });
   }
-  const _ = async (e,value) => {
-    return document.getElementById(e).value = value;}
+
+  const _ = (e,value) => { document.getElementById(e).value = value;}
+  const field_value = (e) => {return document.getElementById(e).value;}
+
+  const _delete = async (e) => {}
 
   const setValuesToModel = async (e)=>{
      
@@ -47,6 +64,7 @@ const InsuranceReports = () => {
     _('latitude',dataObject.latitude);
     _('longitude',dataObject.longitude);
     _('note',dataObject.note);
+    _('doc_id',dataObject.id);
 
   }
 
@@ -132,6 +150,9 @@ const InsuranceReports = () => {
                 <label className="font-weight-bold">Note : </label>
                 <input className="form-control" id="note" placeholder="Type here .." />
               </div>
+
+              <input type="hidden" id="doc_id" />
+
             </div>
             <div className="modal-footer">
               <button
@@ -141,7 +162,7 @@ const InsuranceReports = () => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-success">
+              <button type="button" className="btn btn-success" onClick={updateDocument}>
                 Save changes
               </button>
             </div>
@@ -244,6 +265,7 @@ const InsuranceReports = () => {
                             data-toggle="modal"
                             data-target="#editModal"
                             data-attribute={JSON.stringify(insurance_report_data)}
+                            data-dock-id={insurance_report_data.id}
                             onClick={setValuesToModel}
                           >
                             Edit
@@ -254,7 +276,7 @@ const InsuranceReports = () => {
                             className="btn btn-danger"
                             data-toggle="modal"
                             data-target="#deleteModal"
-                            onClick={test}
+                            onClick={_delete}
                           >
                             Delete
                           </button>
