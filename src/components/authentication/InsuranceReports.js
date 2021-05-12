@@ -246,12 +246,9 @@ const InsuranceReports = () => {
                             id="submit"
                             type="button"
                             className="btn btn-danger"
-<<<<<<< HEAD
                             // data-toggle="modal"
                             // data-target="#deleteModal"
                             data-attribute={JSON.stringify(insurance_report_data)}
-=======
->>>>>>> 52ee87bcff4895ca114ca35e29ed7a3f91051c75
                             onClick={_delete}
                           >
                             Delete
