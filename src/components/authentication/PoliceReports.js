@@ -65,7 +65,10 @@ const PoliceReports = () => {
 
     let db = firebase.firestore();
 
-    db.collection("police_reports").doc(document_id).delete()
+    db.collection("police_reports").doc(document_id).delete().then((e) => {
+      alert("Record deleted successfully !");
+      window.location.reload();
+    });
 
   }
 

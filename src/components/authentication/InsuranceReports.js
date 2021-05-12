@@ -67,7 +67,10 @@ const InsuranceReports = () => {
 
     let db = firebase.firestore();
 
-    db.collection("insurance_reports").doc(document_id).delete();
+    db.collection("insurance_reports").doc(document_id).delete().then((e) => {
+      alert("Record deleted successfully !");
+      window.location.reload();
+    });
   };
 
   const setValuesToModel = async (e) => {
