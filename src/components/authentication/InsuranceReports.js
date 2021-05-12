@@ -44,8 +44,6 @@ const InsuranceReports = () => {
       alert('Record updated successfully !');
       window.location.reload();
     });
-
-
   }
 
   const _ = (e,value) => { document.getElementById(e).value = value;}

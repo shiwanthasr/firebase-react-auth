@@ -18,21 +18,39 @@ const PoliceReports = () => {
 
     await response.get().then((snapshot) => {
       snapshot.docs.forEach((doc) =>
-        setpoliceReportDetails((policeReportDetails) => [
-          ...policeReportDetails,
-          doc.data(),
-        ])
+        setpoliceReportDetails((policeReportDetails) => [ ...policeReportDetails, {...doc.data(), id: doc.id}])
       );
     });
   };
 
-  const _ = async (e,value) => {
-    return document.getElementById(e).value = value;}
+  const updateDocument = async ()=>{
+    let db = firebase.firestore();
+    
+    let document_id = field_value('doc_id');
+
+    db.collection("police_reports").doc(document_id).update({
+      driver_name: field_value('driver_name'),
+      licen_no: field_value('licen_no'),
+      nic: field_value('nic'),
+      vehicle_number: field_value('vehicle_no'),
+      vehicle_model: field_value('vehicle_model'),
+      model_year: field_value('model_year'),
+      fined_amount: field_value('fined_amount'),
+      traffic_violation: field_value('traffic_violation')
+    }).then((e)=>{
+      alert('Record updated successfully !');
+      window.location.reload();
+    });
+  }
+
+  const _ = async (e,value) => { document.getElementById(e).value = value;}
+  const field_value = (e) => {return document.getElementById(e).value;}
+
+  const _delete = async (e) => {}
 
   const setValuesToModel = async (e) => {
     let dataObject = e.currentTarget.getAttribute("data-attribute");
     dataObject = JSON.parse(dataObject);
-    console.log(dataObject);
 
     _("driver_name", dataObject.driver_name);
     _("licen_no", dataObject.licen_no);
@@ -42,6 +60,7 @@ const PoliceReports = () => {
     _("model_year", dataObject.model_year);
     _("traffic_violation", dataObject.traffic_violation);
     _("fined_amount", dataObject.fined_amount);
+    _('doc_id',dataObject.id);
   };
 
   useEffect(() => {
@@ -144,6 +163,9 @@ const PoliceReports = () => {
                   placeholder="Type here .."
                 />
               </div>
+
+              <input type="hidden" id="doc_id" />
+
             </div>
             <div className="modal-footer">
               <button
@@ -153,52 +175,8 @@ const PoliceReports = () => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-success">
+              <button type="button" className="btn btn-success" onClick={updateDocument}>
                 Save changes
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Delete Model */}
-
-      <div
-        className="modal fade"
-        id="deleteModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="deleteModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header bg-dark">
-              <h5 className="modal-title text-light" id="deleteModalLabel">
-                Delete Police Report
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              Are you sure you want to delete this Report ?
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-danger">
-                Delete
               </button>
             </div>
           </div>
@@ -254,6 +232,7 @@ const PoliceReports = () => {
                             data-toggle="modal"
                             data-target="#editModal"
                             data-attribute={JSON.stringify(police_report_data)}
+                            data-dock-id={police_report_data.id}
                             onClick={setValuesToModel}
                           >
                             Edit
