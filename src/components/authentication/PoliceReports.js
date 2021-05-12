@@ -18,11 +18,31 @@ const PoliceReports = () => {
 
     await response.get().then((snapshot) => {
       snapshot.docs.forEach((doc) =>
-        setpoliceReportDetails((policeReportDetails) => [...policeReportDetails, doc.data()])
+        setpoliceReportDetails((policeReportDetails) => [
+          ...policeReportDetails,
+          doc.data(),
+        ])
       );
     });
   };
 
+  const _ = async (e,value) => {
+    return document.getElementById(e).value = value;}
+
+  const setValuesToModel = async (e) => {
+    let dataObject = e.currentTarget.getAttribute("data-attribute");
+    dataObject = JSON.parse(dataObject);
+    console.log(dataObject);
+
+    _("driver_name", dataObject.driver_name);
+    _("licen_no", dataObject.licen_no);
+    _("nic", dataObject.nic);
+    _("vehicle_no", dataObject.vehicle_number);
+    _("vehicle_model", dataObject.vehicle_model);
+    _("model_year", dataObject.model_year);
+    _("traffic_violation", dataObject.traffic_violation);
+    _("fined_amount", dataObject.fined_amount);
+  };
 
   useEffect(() => {
     fetchPoliceReports();
@@ -56,28 +76,73 @@ const PoliceReports = () => {
             </div>
             <div className="modal-body">
               <div className="form-group">
-                <label className="font-weight-bold">Email : </label>
-                <input className="form-control" placeholder="Type here .." />
+                <label className="font-weight-bold">Driver Name : </label>
+                <input
+                  className="form-control"
+                  id="driver_name"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
-                <label className="font-weight-bold">Name : </label>
-                <input className="form-control" placeholder="Type here .." />
+                <label className="font-weight-bold">License No : </label>
+                <input
+                  className="form-control"
+                  id="licen_no"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
                 <label className="font-weight-bold">NIC : </label>
-                <input className="form-control" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="nic"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
-                <label className="font-weight-bold">Police Branch : </label>
-                <input className="form-control" placeholder="Type here .." />
+                <label className="font-weight-bold">Vehicle No : </label>
+                <input
+                  className="form-control"
+                  id="vehicle_no"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
-                <label className="font-weight-bold">Insurace Company : </label>
-                <input className="form-control" placeholder="Type here .." />
+                <label className="font-weight-bold">Vehicle Model : </label>
+                <input
+                  className="form-control"
+                  id="vehicle_model"
+                  placeholder="Type here .."
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="font-weight-bold">Model Year : </label>
+                <input
+                  className="form-control"
+                  id="model_year"
+                  placeholder="Type here .."
+                />
+              </div>
+              <div className="form-group">
+                <label className="font-weight-bold">Traffic Violation : </label>
+                <input
+                  className="form-control"
+                  id="traffic_violation"
+                  placeholder="Type here .."
+                />
+              </div>
+              <div className="form-group">
+                <label className="font-weight-bold">Fined Amount : </label>
+                <input
+                  className="form-control"
+                  id="fined_amount"
+                  placeholder="Type here .."
+                />
               </div>
             </div>
             <div className="modal-footer">
@@ -188,6 +253,8 @@ const PoliceReports = () => {
                             className="btn btn-warning"
                             data-toggle="modal"
                             data-target="#editModal"
+                            data-attribute={JSON.stringify(police_report_data)}
+                            onClick={setValuesToModel}
                           >
                             Edit
                           </button>

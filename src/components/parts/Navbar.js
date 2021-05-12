@@ -37,7 +37,7 @@ const NavbarComponent = () => {
 
   return (
     <Navbar bg="dark" expand="sm" variant="dark">
-      <Navbar.Brand as={Link} to="/" className="border p-2">
+      <Navbar.Brand as={Link} to="/" className="font-weight-bold border p-2">
         <img
           alt=""
           src="/app-logo.png"

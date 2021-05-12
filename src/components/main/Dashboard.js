@@ -4,7 +4,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 const Dashboard = () => {
   return (
     <>
-      <Container fluid>
+      <Container fluid className="mt-4">
         <Row />
         <Row>
           <Col className="text-center">
