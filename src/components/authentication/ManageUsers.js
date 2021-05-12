@@ -97,50 +97,6 @@ const ManageUsers = () => {
         </div>
       </div>
 
-      {/* Delete Model */}
-
-      <div
-        className="modal fade"
-        id="deleteModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="deleteModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header bg-dark">
-              <h5 className="modal-title text-light" id="deleteModalLabel">
-                Delete User
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              Are you sure you want to delete this User ?
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-danger">
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Table */}
       <div className="container mt-4">
         <div className="panel panel-default">
@@ -158,7 +114,6 @@ const ManageUsers = () => {
                   <th scope="col">NIC</th>
                   <th scope="col">Police Branch</th>
                   <th scope="col">Insurance Company</th>
-                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -172,31 +127,6 @@ const ManageUsers = () => {
                       <td>{user_data.nic}</td>
                       <td>{user_data.police_branch}</td>
                       <td>{user_data.insurance_company}</td>
-                      <td>
-                        <div
-                          className="btn-group"
-                          role="group"
-                          aria-label="action btns"
-                        >
-                          <button
-                            type="button"
-                            className="btn btn-warning"
-                            data-toggle="modal"
-                            data-target="#editModal"
-                          >
-                            Edit
-                          </button>
-                          <button
-                            id="submit"
-                            type="button"
-                            className="btn btn-danger"
-                            data-toggle="modal"
-                            data-target="#deleteModal"
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </td>
                     </tr>
                   ))}
               </tbody>
