@@ -46,7 +46,18 @@ const InsuranceReports = () => {
   const _ = (e,value) => { document.getElementById(e).value = value;}
   const field_value = (e) => {return document.getElementById(e).value;}
 
-  const _delete = async (e) => {}
+  const _delete = async(e) => {
+    let dataObject = e.currentTarget.getAttribute('data-attribute');
+    dataObject = JSON.parse(dataObject);
+    //console.log(dataObject.id);
+
+    let document_id = dataObject.id;
+
+    let db = firebase.firestore();
+
+    db.collection("insurance_reports").doc(document_id).delete()
+
+  }
 
   const setValuesToModel = async (e)=>{
      
@@ -274,8 +285,9 @@ const InsuranceReports = () => {
                             id="submit"
                             type="button"
                             className="btn btn-danger"
-                            data-toggle="modal"
-                            data-target="#deleteModal"
+                            // data-toggle="modal"
+                            // data-target="#deleteModal"
+                            data-attribute={JSON.stringify(insurance_report_data)}
                             onClick={_delete}
                           >
                             Delete

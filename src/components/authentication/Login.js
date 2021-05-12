@@ -59,7 +59,7 @@ export default function Login() {
             <Col className="text-center">
               <Image
                 src="/app-logo.png"
-                alt="profile-image"
+                alt="login-image"
                 height={200}
                 width={200}
                 thumbnail
