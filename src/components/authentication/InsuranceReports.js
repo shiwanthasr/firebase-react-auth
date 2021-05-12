@@ -18,7 +18,7 @@ const InsuranceReports = () => {
 
     await response.get().then((snapshot) => {
       snapshot.docs.forEach((doc) =>
-        setinsuranceReportDetails((insuranceReportDetails) => [...insuranceReportDetails, doc.data()])
+        setinsuranceReportDetails((insuranceReportDetails) => [...insuranceReportDetails, {...doc.data(), id: doc.id}])
       );
     });
   };
