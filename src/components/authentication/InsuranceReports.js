@@ -40,7 +40,12 @@ const InsuranceReports = () => {
       latitude: field_value('latitude'),
       longitude: field_value('longitude'),
       note: field_value('note')
+    }).then((e)=>{
+      alert('Record updated successfully !');
+      window.location.reload();
     });
+
+
   }
 
   const _ = (e,value) => { document.getElementById(e).value = value;}
@@ -52,7 +57,6 @@ const InsuranceReports = () => {
      
     let dataObject = e.currentTarget.getAttribute('data-attribute');
     dataObject = JSON.parse(dataObject);
-    console.log(dataObject);
 
     _('driver_name',dataObject.driver_name);
     _('licen_no',dataObject.licen_no);
