@@ -18,35 +18,56 @@ const PoliceReports = () => {
 
     await response.get().then((snapshot) => {
       snapshot.docs.forEach((doc) =>
-        setpoliceReportDetails((policeReportDetails) => [ ...policeReportDetails, {...doc.data(), id: doc.id}])
+        setpoliceReportDetails((policeReportDetails) => [
+          ...policeReportDetails,
+          { ...doc.data(), id: doc.id },
+        ])
       );
     });
   };
 
-  const updateDocument = async ()=>{
+  const updateDocument = async () => {
     let db = firebase.firestore();
-    
-    let document_id = field_value('doc_id');
 
-    db.collection("police_reports").doc(document_id).update({
-      driver_name: field_value('driver_name'),
-      licen_no: field_value('licen_no'),
-      nic: field_value('nic'),
-      vehicle_number: field_value('vehicle_no'),
-      vehicle_model: field_value('vehicle_model'),
-      model_year: field_value('model_year'),
-      fined_amount: field_value('fined_amount'),
-      traffic_violation: field_value('traffic_violation')
-    }).then((e)=>{
-      alert('Record updated successfully !');
-      window.location.reload();
-    });
+    let document_id = field_value("doc_id");
+
+    db.collection("police_reports")
+      .doc(document_id)
+      .update({
+        driver_name: field_value("driver_name"),
+        licen_no: field_value("licen_no"),
+        nic: field_value("nic"),
+        vehicle_number: field_value("vehicle_no"),
+        vehicle_model: field_value("vehicle_model"),
+        model_year: field_value("model_year"),
+        fined_amount: field_value("fined_amount"),
+        traffic_violation: field_value("traffic_violation"),
+      })
+      .then((e) => {
+        alert("Record updated successfully !");
+        window.location.reload();
+      });
+  };
+
+  const _ = async (e, value) => {
+    document.getElementById(e).value = value;
+  };
+  const field_value = (e) => {
+    return document.getElementById(e).value;
+  };
+
+  const _delete = async(e) => {
+    let dataObject = e.currentTarget.getAttribute('data-attribute');
+    dataObject = JSON.parse(dataObject);
+    //console.log(dataObject.id);
+
+    let document_id = dataObject.id;
+
+    let db = firebase.firestore();
+
+    db.collection("police_reports").doc(document_id).delete()
+
   }
-
-  const _ = async (e,value) => { document.getElementById(e).value = value;}
-  const field_value = (e) => {return document.getElementById(e).value;}
-
-  const _delete = async (e) => {}
 
   const setValuesToModel = async (e) => {
     let dataObject = e.currentTarget.getAttribute("data-attribute");
@@ -60,7 +81,7 @@ const PoliceReports = () => {
     _("model_year", dataObject.model_year);
     _("traffic_violation", dataObject.traffic_violation);
     _("fined_amount", dataObject.fined_amount);
-    _('doc_id',dataObject.id);
+    _("doc_id", dataObject.id);
   };
 
   useEffect(() => {
@@ -165,7 +186,6 @@ const PoliceReports = () => {
               </div>
 
               <input type="hidden" id="doc_id" />
-
             </div>
             <div className="modal-footer">
               <button
@@ -175,7 +195,11 @@ const PoliceReports = () => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-success" onClick={updateDocument}>
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={updateDocument}
+              >
                 Save changes
               </button>
             </div>
@@ -241,8 +265,10 @@ const PoliceReports = () => {
                             id="submit"
                             type="button"
                             className="btn btn-danger"
-                            data-toggle="modal"
-                            data-target="#deleteModal"
+                            data-attribute={JSON.stringify(
+                              police_report_data
+                            )}
+                            onClick={_delete}
                           >
                             Delete
                           </button>

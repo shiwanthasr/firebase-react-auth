@@ -18,39 +18,48 @@ const InsuranceReports = () => {
 
     await response.get().then((snapshot) => {
       snapshot.docs.forEach((doc) =>
-        setinsuranceReportDetails((insuranceReportDetails) => [...insuranceReportDetails, {...doc.data(), id: doc.id}])
+        setinsuranceReportDetails((insuranceReportDetails) => [
+          ...insuranceReportDetails,
+          { ...doc.data(), id: doc.id },
+        ])
       );
     });
   };
 
-
-  const updateDocument = async ()=>{
+  const updateDocument = async () => {
     let db = firebase.firestore();
-    
-    let document_id = field_value('doc_id');
 
-    db.collection("insurance_reports").doc(document_id).update({
-      driver_name: field_value('driver_name'),
-      licen_no: field_value('licen_no'),
-      nic: field_value('nic'),
-      vehicle_number: field_value('vehicle_no'),
-      vehicle_model: field_value('vehicle_model'),
-      model_year: field_value('model_year'),
-      estimate_amount: field_value('estimate_amount'),
-      latitude: field_value('latitude'),
-      longitude: field_value('longitude'),
-      note: field_value('note')
-    }).then((e)=>{
-      alert('Record updated successfully !');
-      window.location.reload();
-    });
-  }
+    let document_id = field_value("doc_id");
 
-  const _ = (e,value) => { document.getElementById(e).value = value;}
-  const field_value = (e) => {return document.getElementById(e).value;}
+    db.collection("insurance_reports")
+      .doc(document_id)
+      .update({
+        driver_name: field_value("driver_name"),
+        licen_no: field_value("licen_no"),
+        nic: field_value("nic"),
+        vehicle_number: field_value("vehicle_no"),
+        vehicle_model: field_value("vehicle_model"),
+        model_year: field_value("model_year"),
+        estimate_amount: field_value("estimate_amount"),
+        latitude: field_value("latitude"),
+        longitude: field_value("longitude"),
+        note: field_value("note"),
+      })
+      .then((e) => {
+        alert("Record updated successfully !");
+        window.location.reload();
+      });
+  };
 
-  const _delete = async(e) => {
-    let dataObject = e.currentTarget.getAttribute('data-attribute');
+  const _ = (e, value) => {
+    document.getElementById(e).value = value;
+  };
+  const field_value = (e) => {
+    return document.getElementById(e).value;
+  };
+
+  const _delete = async (e) => {
+    let dataObject = e.currentTarget.getAttribute("data-attribute");
     dataObject = JSON.parse(dataObject);
     //console.log(dataObject.id);
 
@@ -58,29 +67,25 @@ const InsuranceReports = () => {
 
     let db = firebase.firestore();
 
-    db.collection("insurance_reports").doc(document_id).delete()
+    db.collection("insurance_reports").doc(document_id).delete();
+  };
 
-  }
-
-  const setValuesToModel = async (e)=>{
-     
-    let dataObject = e.currentTarget.getAttribute('data-attribute');
+  const setValuesToModel = async (e) => {
+    let dataObject = e.currentTarget.getAttribute("data-attribute");
     dataObject = JSON.parse(dataObject);
 
-    _('driver_name',dataObject.driver_name);
-    _('licen_no',dataObject.licen_no);
-    _('nic',dataObject.nic);
-    _('vehicle_no',dataObject.vehicle_number);
-    _('vehicle_model',dataObject.vehicle_model);
-    _('model_year',dataObject.model_year);
-    _('estimate_amount',dataObject.estimate_amount);
-    _('latitude',dataObject.latitude);
-    _('longitude',dataObject.longitude);
-    _('note',dataObject.note);
-    _('doc_id',dataObject.id);
-
-  }
-
+    _("driver_name", dataObject.driver_name);
+    _("licen_no", dataObject.licen_no);
+    _("nic", dataObject.nic);
+    _("vehicle_no", dataObject.vehicle_number);
+    _("vehicle_model", dataObject.vehicle_model);
+    _("model_year", dataObject.model_year);
+    _("estimate_amount", dataObject.estimate_amount);
+    _("latitude", dataObject.latitude);
+    _("longitude", dataObject.longitude);
+    _("note", dataObject.note);
+    _("doc_id", dataObject.id);
+  };
 
   useEffect(() => {
     fetchInsuranceReports();
@@ -115,57 +120,95 @@ const InsuranceReports = () => {
             <div className="modal-body">
               <div className="form-group">
                 <label className="font-weight-bold">Driver Name : </label>
-                <input className="form-control" id="driver_name" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="driver_name"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
                 <label className="font-weight-bold">License No : </label>
-                <input className="form-control" id="licen_no" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="licen_no"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
                 <label className="font-weight-bold">NIC : </label>
-                <input className="form-control" id="nic" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="nic"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
                 <label className="font-weight-bold">Vehicle No : </label>
-                <input className="form-control" id="vehicle_no" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="vehicle_no"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
                 <label className="font-weight-bold">Vehicle Model : </label>
-                <input className="form-control" id="vehicle_model" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="vehicle_model"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
                 <label className="font-weight-bold">Model Year : </label>
-                <input className="form-control" id="model_year" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="model_year"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
                 <label className="font-weight-bold">Estimate Amount : </label>
-                <input className="form-control" id="estimate_amount" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="estimate_amount"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
                 <label className="font-weight-bold">Latitude : </label>
-                <input className="form-control" id="latitude" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="latitude"
+                  placeholder="Type here .."
+                />
               </div>
 
               <div className="form-group">
                 <label className="font-weight-bold">Longitude : </label>
-                <input className="form-control" id="longitude" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="longitude"
+                  placeholder="Type here .."
+                />
               </div>
-
 
               <div className="form-group">
                 <label className="font-weight-bold">Note : </label>
-                <input className="form-control" id="note" placeholder="Type here .." />
+                <input
+                  className="form-control"
+                  id="note"
+                  placeholder="Type here .."
+                />
               </div>
 
               <input type="hidden" id="doc_id" />
-
             </div>
             <div className="modal-footer">
               <button
@@ -175,7 +218,11 @@ const InsuranceReports = () => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-success" onClick={updateDocument}>
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={updateDocument}
+              >
                 Save changes
               </button>
             </div>
@@ -184,7 +231,6 @@ const InsuranceReports = () => {
       </div>
 
       {/* Delete Model */}
-
 
       {/* Table */}
       <div className="container mt-4">
@@ -222,7 +268,10 @@ const InsuranceReports = () => {
                       <td>{insurance_report_data.vehicle_model}</td>
                       <td>{insurance_report_data.model_year}</td>
                       <td>{insurance_report_data.estimate_amount}</td>
-                      <td>{insurance_report_data.latitude} - {insurance_report_data.longitude}</td>
+                      <td>
+                        {insurance_report_data.latitude} -{" "}
+                        {insurance_report_data.longitude}
+                      </td>
                       <td>{insurance_report_data.note}</td>
                       <td>{insurance_report_data.timestamp}</td>
                       <td>
@@ -236,7 +285,9 @@ const InsuranceReports = () => {
                             className="btn btn-warning"
                             data-toggle="modal"
                             data-target="#editModal"
-                            data-attribute={JSON.stringify(insurance_report_data)}
+                            data-attribute={JSON.stringify(
+                              insurance_report_data
+                            )}
                             data-dock-id={insurance_report_data.id}
                             onClick={setValuesToModel}
                           >
@@ -248,7 +299,9 @@ const InsuranceReports = () => {
                             className="btn btn-danger"
                             // data-toggle="modal"
                             // data-target="#deleteModal"
-                            data-attribute={JSON.stringify(insurance_report_data)}
+                            data-attribute={JSON.stringify(
+                              insurance_report_data
+                            )}
                             onClick={_delete}
                           >
                             Delete
