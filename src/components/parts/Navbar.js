@@ -1,30 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, {  } from "react";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import firebase from "firebase";
 
 const NavbarComponent = () => {
   const history = useHistory();
-  const [userData, setUserData] = useState({});
   const { currentUser, logout } = useAuth();
-  var user = firebase.auth().currentUser;
-  const firestore = firebase.firestore();
-
-  useEffect(() => {
-    if (user != null)
-      firestore
-        .collection("users")
-        .doc(user.uid) // change to the current user id
-        .get()
-        .then((user) => {
-          if (user.exists) {
-            // now you can do something with user
-            //console.log(user.data())
-            setUserData(user.data());
-          }
-        });
-  }, [firestore, user != null ? user.uid : null]);
 
   async function handleLogout() {
     try {
@@ -83,7 +64,7 @@ const NavbarComponent = () => {
             Welcome, {localStorage.getItem("name")}{" "}
           </Nav.Link>
           <span className="text-success font-weight-bold">
-            [ {userData.role} ]
+            [ {localStorage.getItem("role")} ]
           </span>
         </p>
       </Nav>
