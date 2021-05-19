@@ -1,28 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, Alert, Row, Col, Image, ListGroup } from "react-bootstrap";
-import { useAuth } from "../../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
-import firebase from "firebase";
+import { Link } from "react-router-dom";
 import CenteredContainer from "./CenteredContainer";
 
 export default function Profile() {
+
   const [error, setError] = useState("");
-  const [userData, setUserData] = useState({});
-  const { currentUser, logout } = useAuth();
-  const history = useHistory();
-
-  const firestore = firebase.firestore();
-  
-  async function handleLogout() {
-    setError("");
-
-    try {
-      await logout();
-      history.push("/login");
-    } catch {
-      setError("Failed to log out!");
-    }
-  }
 
   return (
 
@@ -41,10 +24,10 @@ export default function Profile() {
               />
             </Col>
           </Row>
-          {userData && (
+          {localStorage && (
             <h2 className="text-center mb-2 mt-2">Welcome, {localStorage.getItem("name")}</h2>
           )}
-          {userData && (
+          {localStorage && (
             <h4 className="text-center mb-4">[ {localStorage.getItem("role")} ]</h4>
           )}
           {error && <Alert variant="danger">{error}</Alert>}
@@ -59,12 +42,12 @@ export default function Profile() {
           <Link to="/update-profile" className="btn btn-primary w-100 mt-4">
             Update Profile
           </Link>
-          {userData.role === "admin" && (
+          {localStorage.getItem("role") === "admin" && (
             <Link to="/create-user" className="btn btn-success w-100 mt-4">
               Create User
             </Link>
           )}
-          {userData.role === "police_admin" && (
+          {localStorage.getItem("role") === "police_admin" && (
             <Link
               to="/create-police-user"
               className="btn btn-warning w-100 mt-4"
@@ -72,7 +55,7 @@ export default function Profile() {
               Create Police User
             </Link>
           )}
-          {userData.role === "insurance_admin" && (
+          {localStorage.getItem("role") === "insurance_admin" && (
             <Link
               to="/create-insurance-user"
               className="btn btn-info w-100 mt-4"
